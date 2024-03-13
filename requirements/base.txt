@@ -1,0 +1,11 @@
+django==4.2.10
+psycopg2-binary
+python-environ
+django-cors-headers
+django-jazzmin
+drf-yasg
+djangorestframework
+djangorestframework-simplejwt
+django-filter
+django-modeltranslation
+Pillow

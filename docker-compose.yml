@@ -1,0 +1,56 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:15
+    volumes:
+      - postgres_data:/var/lib/postgres/data/
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_HOST=${DB_HOST}
+      - POSTGRES_PORT=${DB_PORT}
+    restart: always
+
+  web: &web
+    restart: always
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    command: gunicorn core.wsgi:application --bind 0.0.0.0:${WEB_PORT} --workers=4
+    security_opt:
+      - seccomp:unconfined
+    volumes:
+      - ./static:/home/app/web/static
+      - ./media:/home/app/web/media
+      - ./locale:/home/app/web/locale
+    env_file:
+      - .env
+    ports:
+      - ${WEB_PORT}:${WEB_PORT}
+    depends_on:
+      - db
+
+#  celery-worker:
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile
+#    command: celery -A core worker --beat --scheduler django --loglevel=info
+#    volumes:
+#      - ./:/app
+#    env_file:
+#      - .env
+#    depends_on:
+#      - db
+#      - redis
+
+#  redis:
+#    container_name: heat_warehouse_redis
+#    image: redis:5.0
+#    restart: always
+
+volumes:
+  postgres_data:
