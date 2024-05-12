@@ -9,3 +9,7 @@ djangorestframework-simplejwt
 django-filter
 django-modeltranslation
 Pillow
+redis
+celery
+django-celery-beat
+requests

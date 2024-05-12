@@ -43,4 +43,3 @@ COPY . $APP_HOME
 
 # run entrypoint.prod.sh
 RUN ["chmod", "+x", "/home/app/web/entrypoint.sh"]
-ENTRYPOINT ["/home/app/web/entrypoint.sh"]

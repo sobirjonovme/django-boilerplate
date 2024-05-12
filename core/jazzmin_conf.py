@@ -7,12 +7,12 @@ JAZZMIN_SETTINGS: dict = {
     "site_brand": "Admin Site Brand",
     # Logo to use for your site, must be present in static files, used for brand on top left
     # "site_logo": "assets/img/admin-logo.png",
-    # "login_logo": "assets/img/kapital-qurilish-logo.png",
-    # "login_logo_dark": "assets/img/kapital-qurilish-logo.png",
+    # "login_logo": "assets/img/site-logo.png",
+    # "login_logo_dark": "assets/img/site-logo.png",
     # CSS classes that are applied to the logo above
     "site_logo_classes": "img",
     # Relative path to a favicon for your site, will default to site_logo if absent (ideally 32x32 px)
-    # "site_icon": "assets/img/kapital-qurilish-logo.png",
+    # "site_icon": "assets/img/site-cion.png",
     # Welcome text on the login screen
     "welcome_sign": "Welcome to Admin",
     # Copyright on the footer
