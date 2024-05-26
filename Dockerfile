@@ -36,10 +36,10 @@ RUN pip install --upgrade pip
 RUN pip install -r production.txt
 
 # copy entrypoint.sh
-COPY ./entrypoint.sh $APP_HOME
+COPY entrypoints/ $APP_HOME/entrypoints/
 
 # copy project
 COPY . $APP_HOME
 
-# run entrypoint.prod.sh
-RUN ["chmod", "+x", "/home/app/web/entrypoint.sh"]
+# chmod all entrypoints files recursively
+RUN ["chmod", "+x", "-R", "/home/app/web/entrypoints/"]

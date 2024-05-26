@@ -2,7 +2,7 @@ services:
   db:
     image: postgres:15
     volumes:
-      - postgres_data:/var/lib/postgres/data/
+      - postgres_data:/var/lib/postgresql/data/
     env_file:
       - .env
     environment:
@@ -18,7 +18,7 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    entrypoint: /home/app/web/entrypoint.sh
+    entrypoint: /home/app/web/entrypoints/entrypoint-web.sh
     command: gunicorn core.wsgi:application --bind 0.0.0.0:${WEB_PORT} --workers=4
     security_opt:
       - seccomp:unconfined
@@ -32,11 +32,15 @@ services:
       - ${WEB_PORT}:${WEB_PORT}
     depends_on:
       - db
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   celery-worker:
+    restart: always
     build:
       context: ./
       dockerfile: Dockerfile
+    entrypoint: /home/app/web/entrypoints/entrypoint-celery.sh
     command: celery -A core worker --beat --scheduler django --loglevel=info
     volumes:
       - ./:/app
@@ -45,6 +49,7 @@ services:
     depends_on:
       - web
       - redis
+      - db
 
   redis:
     image: redis:5.0
