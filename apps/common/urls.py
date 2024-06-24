@@ -5,6 +5,6 @@ from .api_endpoints import FrontendTranslationAPIView, VersionHistoryAPIView
 app_name = "common"
 
 urlpatterns = [
-    path("FrontendTranslations/", FrontendTranslationAPIView.as_view(), name="frontend-translations"),
-    path("VersionHistory/", VersionHistoryAPIView.as_view(), name="version-history"),
+    path("frontend-translations/", FrontendTranslationAPIView.as_view(), name="frontend-translations"),
+    path("version-history/", VersionHistoryAPIView.as_view(), name="version-history"),
 ]
