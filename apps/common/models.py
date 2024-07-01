@@ -9,6 +9,14 @@ class BaseModel(models.Model):
     class Meta:
         abstract = True
 
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        # add updated_at field to update_fields if it is not present
+        # so that updated_at field will always be updated
+        if update_fields and "updated_at" not in update_fields:
+            update_fields.append("updated_at")
+
+        super().save(force_insert, force_update, using, update_fields)
+
 
 class VersionHistory(BaseModel):
     version = models.CharField(_("Version"), max_length=64)
