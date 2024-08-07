@@ -379,3 +379,4 @@ Temporary Items
 *.icloud
 
 celerybeat-schedule.db
+source_code.txt
